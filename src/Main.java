@@ -25,32 +25,28 @@ public class Main {
                     // shutdown
                     break;
                 } else if (input == 1) {
-                    System.out.print("Enter items to add: ");
+                    System.out.print("Enter item(s) to add: ");
 
-                    // Checks whether entered item is already on the list.
-                    String item = scanner.nextLine();
+                    // Stores the input item(s) into an array.
+                    String[] inputItems = itemsToArray(scanner.nextLine());
 
-                    // Stores the input item into an array.
-                    String[] inputItems = item.split(",");
-
-                    // Trimming all elements of inputItems.
-                    for (int i = 0; i < inputItems.length; i++) {
-                        inputItems[i] = inputItems[i].trim();
-                    }
-
-                    // Adding elements of inputItem in groceryList.
+                    // Checks if item(s) is already present on the list.
                     for (String element : inputItems) {
+                        // Checks if item is not present on the list.
                         if (!groceryList.contains(element)) {
                             groceryList.add(element);
-                        } else {
-                            System.out.println(element + " already present in the list.");
                         }
                     }
                 } else if (input == 2) {
-                    System.out.print("Enter item to remove: ");
+                    System.out.print("Enter item(s) to remove: ");
 
-                    // Removes entered text from the list, if available.
-                    groceryList.remove(scanner.nextLine());
+                    // Stores the input item(s) into an array.
+                    String[] inputItems = itemsToArray(scanner.nextLine());
+
+                    // Removes the item if present in the grocery list.
+                    for (String element : inputItems) {
+                        groceryList.remove(element);
+                    }
                 } else {
                     System.out.println("Wrong Choice. Try again.");
                 }
@@ -64,5 +60,22 @@ public class Main {
                 System.out.println("Enter only 0, 1 or 2.");
             }
         } while (true);
+
+        // Closes Scanner.
+        scanner.close();
+    }
+
+    /**
+     * Converts the entered comma delimited list of items into an Array.
+     */
+    private static String[] itemsToArray(String item) {
+        // Stores the input item into an array.
+        String[] inputItems = item.split(",");
+
+        // Trimming all elements of inputItems.
+        for (int i = 0; i < inputItems.length; i++) {
+            inputItems[i] = inputItems[i].trim();
+        }
+        return inputItems;
     }
 }
